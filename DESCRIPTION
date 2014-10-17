@@ -1,0 +1,10 @@
+Package: ggflow
+Type: Package
+Title: use ggplot to create beautiful flow cytometry plots from flowCore objects
+Version: 1.0
+Date: 2014-10-16
+Author: Francesco Vallania
+Maintainer: Francesco Vallania <fvallani@stanford.edu>
+Description: More about what it does (maybe more than one line)
+Suggests: ggplot2,flowCore
+License: GPLv3
