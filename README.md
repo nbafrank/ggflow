@@ -18,7 +18,7 @@ In this example data, you can use ggflow to plot FL4-H against FL1-H in log10 sc
 ggflow_plot(GvHD[[1]],x_value="FL4-H",y_value="FL1-H")
 ```
 
-![plot of chunk unnamed-chunk-1](figures/figure1.pdf)
+![plot of chunk unnamed-chunk-1](figures/figure1.png)
 
 
 
@@ -33,7 +33,7 @@ rectGate <- rectangleGate("FL1-H"=c(300, 6500),"FL4-H"=c(1.5,30))
 gg_rectgater_display(ggflow_plot(GvHD[[1]],x_value="FL4-H",y_value="FL1-H"),rectGate)
 ```
 
-![plot of chunk unnamed-chunk-2](figures/figure2.pdf)
+![plot of chunk unnamed-chunk-2](figures/figure2.png)
 
 
 
@@ -50,6 +50,6 @@ gg_rectgater_display(ggflow_plot(GvHD[[1]],x_value="FSC-H",y_value="SSC-H"),rect
 gg_rectgater_display(gg_rectgater_cut(ggflow_plot(GvHD[[1]],x_value="FL4-H",y_value="FL1-H"),rectGate_cut),rectGate)
 ```
 
-![plot of chunk unnamed-chunk-3](figures/figure3.pdf)
+![plot of chunk unnamed-chunk-3](figures/figure3.png)
 
 
