@@ -7,6 +7,7 @@ ggflow is a plotting package for flowcytometry built on ggplot2 and flowCore. gg
 To install please install the devtools package and type
 
 library(devtools)
+
 install_github("nbafrank/ggflow")
 
 this package requires the ggplot2 and flowCore packages.
