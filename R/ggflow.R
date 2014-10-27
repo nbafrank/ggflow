@@ -7,8 +7,8 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #######################################################################################
 
-library(flowCore);
-library(ggplot2);
+require(flowCore);
+require(ggplot2);
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #ggflow_plot
@@ -17,13 +17,13 @@ library(ggplot2);
 #a "ggflow" object
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ggflow_plot <- function(flowFrame,
-                   x_value,
-                   y_value,
-                   logx    = TRUE,
-                   logy    = TRUE,
-                   x_lim   = NA,
-                   y_lim   = NA,
-                   contour = TRUE){
+                        x_value = "SSC-H",
+                        y_value = "FSC-H",
+                        logx    = TRUE,
+                        logy    = TRUE,
+                        x_lim   = NA,
+                        y_lim   = NA,
+                        contour = TRUE){
   #extract data
   value_matrix <- as.data.frame(exprs(flowFrame));
   
@@ -110,6 +110,9 @@ ggflow_plot <- function(flowFrame,
                         ylim = y_lim); 
     } 
   }
+  
+  #add the flowFrame obj into the ggplot_obj
+  ggplot_obj$flowFrame <- flowFrame;
   
   #return object
   return(ggplot_obj);
@@ -238,3 +241,28 @@ gg_rectgater_cut <- function(gg_flow_plot,
   return(gg_flow_plot);
 }
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#gg_gate_cutter
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#this function modifies a ggflow object by gating on certain specific values. This 
+#function extends and replaces gg_rectgater_cut by allowing multiple type of gates
+#using flowCore's built-in gate operations
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gg_gate_cutter <- function(gg_flow_plot,
+                           flowGate=NULL){
+  
+  #check if gate dimensions are even in the plot
+  if(!is.null(flowGate)){
+    #redefine flowframe object
+    newflowFrame <- Subset(gg_flow_plot$flowFrame,
+                           filter(gg_flow_plot$flowFrame,
+                                  flowGate));
+    #replot using new flowFrame
+    gg_flow_plot <- ggflow_plot(newflowFrame,
+                                x_value = gg_flow_plot$labels$x,
+                                y_value = gg_flow_plot$labels$y)
+  }
+  
+  #return ggplot object
+  return(gg_flow_plot);
+}
