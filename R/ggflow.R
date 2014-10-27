@@ -208,39 +208,6 @@ gg_rectgater_display <- function(gg_flow_plot,
   return(gg_flow_plot);
 }
 
-
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#gg_rectgater_cut
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#this function modifies a ggflow object by gating on certain specific values
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-gg_rectgater_cut <- function(gg_flow_plot,
-                             rectGate=NULL){
-  
-  #check if gate dimensions are even in the plot
-  if(!is.null(rectGate)){
-    name_map <- match(names(rectGate@max),
-                      colnames(gg_flow_plot$data));
-    
-    #if both x and y match add gate
-    if(all(!is.na(name_map))){
-      
-      #select points that match the plot and exclude them
-      set_one <- intersect(which(gg_flow_plot$data[,name_map[1]]>=rectGate@min[1]),
-                           which(gg_flow_plot$data[,name_map[1]]<=rectGate@max[1]));
-      
-      set_two <- intersect(which(gg_flow_plot$data[,name_map[2]]>=rectGate@min[2]),
-                           which(gg_flow_plot$data[,name_map[2]]<=rectGate@max[2]));
-      
-      #modify plot
-      gg_flow_plot$data <- gg_flow_plot$data[intersect(set_one,set_two),];
-    }
-  }
-  
-  #return ggplot object
-  return(gg_flow_plot);
-}
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #gg_gate_cutter
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
