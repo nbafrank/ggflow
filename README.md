@@ -6,8 +6,10 @@ ggflow is a plotting package for flowcytometry built on ggplot2 and flowCore. gg
 
 To install please install the devtools package and type
 
+```{r}
 library(devtools)
 install_github("nbafrank/ggflow")
+```
 
 this package requires the ggplot2 and flowCore packages.
 
@@ -16,10 +18,14 @@ this package requires the ggplot2 and flowCore packages.
 library(ggplot2)
 library(flowCore)
 library(ggflow)
+```
+To test it, you can use flowCore's example data by typing
+
+```{r}
 data(GvHD)
 ```
 
-In this example data, you can use ggflow to plot FL4-H against FL1-H in log10 scale with an onverlaying density contour plot by simply typing:
+In this data, you can use ggflow to plot FL4-H against FL1-H in log10 scale with an onverlaying density contour plot by simply typing:
 
 ```{r,fig.height=12,fig.width=14}
 ggflow_plot(GvHD[[1]],x_value="FL4-H",y_value="FL1-H")
