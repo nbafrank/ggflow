@@ -142,6 +142,8 @@ gg_rectgater_display <- function(gg_flow_plot,
                                  size_seg = 1,
                                  col_seg  = "orange",
                                  label    = TRUE,
+                                 perc     = TRUE,
+                                 totc     = TRUE,
                                  col_lab  = "orangered",
                                  type_seg = 2){
   
@@ -207,6 +209,8 @@ gg_rectgater_display <- function(gg_flow_plot,
       
       #display percentage cells
       if(label==TRUE){
+        #percentage
+        if(perc==TRUE){
         gg_flow_plot <- gg_flow_plot + 
           annotate("text",
                    label=paste(round(selected_perc*100,2),"%",sep=""),
@@ -214,6 +218,17 @@ gg_rectgater_display <- function(gg_flow_plot,
                    y=y_min,
                    colour= col_lab,
                    size=8);
+        }
+        #total count
+        if(totc==TRUE){
+          gg_flow_plot <- gg_flow_plot + 
+            annotate("text",
+                     label=selected_cells,
+                     x=x_max,
+                     y=y_min,
+                     colour= col_lab,
+                     size=8);
+        }
       }
     }
   }

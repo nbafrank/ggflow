@@ -16,20 +16,11 @@ Version: \tab 1.0\cr
 Date: \tab 2014-10-16\cr
 License: GPLv3
 }
-~~ An overview of how to use the package, including the most important functions ~~
 }
 \author{
 Francesco Vallania
-fvallani@stanford.edu
+https://github.com/nbafrank/ggflow
 }
 
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R ~~
-~~ documentation directory ~~
-\keyword{ package }
-\seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
-\examples{
-~~ simple examples of the most important functions ~~
-}
+
+\keyword{ ggflow }

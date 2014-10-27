@@ -8,7 +8,15 @@ Display a rectangular gate object on a a ggflow plot
 This function adds a rectangular gate on top of a ggflow plot object. The gate will also display cell percentage at the bottom of the gate.
 }
 \usage{
-gg_rectgater_display(gg_flow_plot, rectGate = NULL, size_seg = 1, col_seg = "orange", label = TRUE, col_lab = "orangered", type_seg = 2)
+gg_rectgater_display(gg_flow_plot,
+                     rectGate = NULL,
+                     size_seg = 1,
+                     col_seg  = "orange",
+                     label    = TRUE,
+                     perc     = TRUE,
+                     totc     = TRUE,
+                     col_lab  = "orangered",
+                     type_seg = 2)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
