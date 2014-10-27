@@ -21,6 +21,7 @@ ggflow_plot <- function(flowFrame,
                         y_value = "FSC-H",
                         logx    = TRUE,
                         logy    = TRUE,
+                        color_v = c("blue","red"),
                         x_lim   = NA,
                         y_lim   = NA,
                         contour = TRUE){
@@ -78,8 +79,7 @@ ggflow_plot <- function(flowFrame,
                        size=2,
                        bins=500,
                        geom="polygon")          +
-        scale_fill_gradient(low = 'blue',
-                            high= 'red')        +
+        scale_fill_gradientn(colours=color_v)   +
         scale_alpha(range = c(0.03, 0.03),
                     guide = FALSE)              +
         labs(fill="Density")
@@ -113,6 +113,16 @@ ggflow_plot <- function(flowFrame,
   
   #add the flowFrame obj into the ggplot_obj
   ggplot_obj$flowFrame <- flowFrame;
+  
+  #add options 
+  ggplot_obj$inputopts <- list(x_value = x_value,
+                               y_value = y_value,
+                               logx    = logx,
+                               logy    = logy,
+                               color_v = color_v,
+                               x_lim   = x_lim,
+                               y_lim   = y_lim,
+                               contour = contour);
   
   #return object
   return(ggplot_obj);
@@ -226,8 +236,14 @@ gg_gate_cutter <- function(gg_flow_plot,
                                   flowGate));
     #replot using new flowFrame
     gg_flow_plot <- ggflow_plot(newflowFrame,
-                                x_value = gg_flow_plot$labels$x,
-                                y_value = gg_flow_plot$labels$y)
+                                x_value = ggplot_obj$inputopts$x_value,
+                                y_value = ggplot_obj$inputopts$y_value,
+                                logx    = ggplot_obj$inputopts$logx,
+                                logy    = ggplot_obj$inputopts$logy,
+                                color_v = ggplot_obj$inputopts$color_v,
+                                x_lim   = ggplot_obj$inputopts$x_lim,
+                                y_lim   = ggplot_obj$inputopts$y_lim,
+                                contour = ggplot_obj$inputopts$contour)
   }
   
   #return ggplot object

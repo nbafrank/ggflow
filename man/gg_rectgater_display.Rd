@@ -5,7 +5,7 @@
 Display a rectangular gate object on a a ggflow plot  
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+This function adds a rectangular gate on top of a ggflow plot object. The gate will also display cell percentage at the bottom of the gate.
 }
 \usage{
 gg_rectgater_display(gg_flow_plot, rectGate = NULL, size_seg = 1, col_seg = "orange", label = TRUE, col_lab = "orangered", type_seg = 2)
@@ -34,79 +34,28 @@ color of the display label
 linetype parameter on the gate lines
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+This function will return a ggflow plot object with an added rectangular gate drawn on top of the plot
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Francesco Vallania
 }
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+  #load data from flowCore 
+  data(GvHD)
+  
+  #plot data and save it into a variable
+  ggplot_obj <- ggflow_plot(GvHD[[1]],x_value="FL4-H",y_value="FL1-H")
+  
+  #create gate
+  rectGate <- rectangleGate("FL1-H"=c(300, 6500),"FL4-H"=c(1.5,30))
 
-## The function is currently defined as
-function (gg_flow_plot, rectGate = NULL, size_seg = 1, col_seg = "orange", 
-    label = TRUE, col_lab = "orangered", type_seg = 2) 
-{
-    if (!is.null(rectGate)) {
-        name_map <- match(c(gg_flow_plot$labels$y, gg_flow_plot$labels$x), 
-            names(rectGate@max))
-        if (all(!is.na(name_map))) {
-            x_min <- rectGate@min[name_map[2]]
-            x_max <- rectGate@max[name_map[2]]
-            y_min <- rectGate@min[name_map[1]]
-            y_max <- rectGate@max[name_map[1]]
-            x_select <- intersect(which(gg_flow_plot$data$x >= 
-                x_min), which(gg_flow_plot$data$x <= x_max))
-            y_select <- intersect(which(gg_flow_plot$data$y >= 
-                y_min), which(gg_flow_plot$data$y <= y_max))
-            selected_cells <- length(intersect(x_select, y_select))
-            selected_perc <- selected_cells/nrow(gg_flow_plot$data)
-            gg_flow_plot <- gg_flow_plot + geom_segment(data = data.frame(x = x_min, 
-                xend = x_min, y = y_min, yend = y_max), aes(x = x, 
-                y = y, xend = xend, yend = yend), size = size_seg, 
-                colour = col_seg, linetype = type_seg) + geom_segment(data = data.frame(x = x_min, 
-                xend = x_max, y = y_min, yend = y_min), aes(x = x, 
-                y = y, xend = xend, yend = yend), size = size_seg, 
-                colour = col_seg, linetype = type_seg) + geom_segment(data = data.frame(x = x_max, 
-                xend = x_max, y = y_min, yend = y_max), aes(x = x, 
-                y = y, xend = xend, yend = yend), size = size_seg, 
-                colour = col_seg, linetype = type_seg) + geom_segment(data = data.frame(x = x_min, 
-                xend = x_max, y = y_max, yend = y_max), aes(x = x, 
-                y = y, xend = xend, yend = yend), size = size_seg, 
-                colour = col_seg, linetype = type_seg)
-            if (label == TRUE) {
-                gg_flow_plot <- gg_flow_plot + annotate("text", 
-                  label = paste(round(selected_perc * 100, 2), 
-                    "\%", sep = ""), x = x_min, y = y_min, colour = col_lab, 
-                  size = 8)
-            }
-        }
-    }
-    return(gg_flow_plot)
-  }
+  #apply gate to ggflow plot object to create a new plot object
+  gg_rectgater_display(ggplot_obj,rectGate)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ggflow}

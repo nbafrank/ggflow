@@ -46,7 +46,7 @@ Francesco Vallania
   rectGate_cut <- rectangleGate("FSC-H"=c(60, 300),"SSC-H"=c(100,1000))
   
   #apply gate to ggflow plot object to create a new plot object
-  gg_rectgater_cut(ggplot_obj,rectGate_cut)
+  gg_gate_cutter(ggplot_obj,rectGate_cut)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

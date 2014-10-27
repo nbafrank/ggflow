@@ -8,7 +8,15 @@
 this function will read a flowFrame object from flowCore and plot a 2-D scatter plot of values for single cell data. 
 }
 \usage{
-ggflow_plot(flowFrame, x_value, y_value, logx = TRUE, logy = TRUE, x_lim = NA, y_lim = NA, contour = TRUE)
+ggflow_plot(flowFrame,
+            x_value = "SSC-H",
+            y_value = "FSC-H",
+            logx    = TRUE,
+            logy    = TRUE,
+            color_v = c("blue","red"),
+            x_lim   = NA,
+            y_lim   = NA,
+            contour = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -16,16 +24,19 @@ ggflow_plot(flowFrame, x_value, y_value, logx = TRUE, logy = TRUE, x_lim = NA, y
 a flowFrame object from flowCore.
 }
   \item{x_value}{
-a string describing the parameter to be plotted on the x-axis e.g. x_value = "FSC-A"
+a string describing the parameter to be plotted on the x-axis e.g. x_value = "SSC-H"
 }
   \item{y_value}{
-a string describing the parameter to be plotted on the x-axis e.g. y_value = "SSC-A"
+a string describing the parameter to be plotted on the x-axis e.g. y_value = "FSC-H"
+}
+  \item{color_v}{
+this option specifies the density gradient color scale and defaults to low blue and high red 
 }
   \item{logx}{
-this option specify to use log10 scale on the x axis
+this option specifies to use log10 scale on the x axis
 }
   \item{logy}{
-this option specify to use log10 scale on the y axis
+this option specifies to use log10 scale on the y axis
 }
   \item{x_lim}{
 a vector with min and max values displayed on the x-axis 
