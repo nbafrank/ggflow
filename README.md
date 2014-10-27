@@ -60,7 +60,9 @@ rectGate_cut <- rectangleGate("FSC-H"=c(60, 300),"SSC-H"=c(100,1000))
 ```{r,fig.height=12,fig.width=14}
 gg_rectgater_display(ggflow_plot(GvHD[[1]],x_value="FSC-H",y_value="SSC-H"),rectGate_cut)
 
-gg_rectgater_display(gg_gate_cutter(ggflow_plot(GvHD[[1]],x_value="FL4-H",y_value="FL1-H"),rectGate_cut),rectGate)
+ggcut <- gg_gate_cutter(ggflow_plot(GvHD[[1]],x_value="FL4-H",y_value="FL1-H"),rectGate_cut)
+
+gg_rectgater_display(ggcut,rectGate)
 ```
 
 ![plot of chunk unnamed-chunk-3](figures/figure3.png)
