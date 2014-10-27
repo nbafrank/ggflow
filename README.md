@@ -51,7 +51,7 @@ gg_rectgater_display(ggflow_plot(GvHD[[1]],x_value="FL4-H",y_value="FL1-H"),rect
 
 
 
-Additionally the rectangular gate object can also be used to select cells/events to be displayed. This is useful for instance if you are interested in gating a parameter and then plot others.
+Additionally the rectangular gate object can also be used to select cells/events to be displayed. This is useful for instance if you are interested in gating a parameter and then plot others. This can be done with all gate objects from flowCore.
 
 ```{r}
 rectGate_cut <- rectangleGate("FSC-H"=c(60, 300),"SSC-H"=c(100,1000))
@@ -60,7 +60,7 @@ rectGate_cut <- rectangleGate("FSC-H"=c(60, 300),"SSC-H"=c(100,1000))
 ```{r,fig.height=12,fig.width=14}
 gg_rectgater_display(ggflow_plot(GvHD[[1]],x_value="FSC-H",y_value="SSC-H"),rectGate_cut)
 
-gg_rectgater_display(gg_rectgater_cut(ggflow_plot(GvHD[[1]],x_value="FL4-H",y_value="FL1-H"),rectGate_cut),rectGate)
+gg_rectgater_display(gg_gate_cutter(ggflow_plot(GvHD[[1]],x_value="FL4-H",y_value="FL1-H"),rectGate_cut),rectGate)
 ```
 
 ![plot of chunk unnamed-chunk-3](figures/figure3.png)
