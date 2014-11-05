@@ -11,8 +11,7 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #######################################################################################
 
-library(flowCore);
-library(ggplot2);
+require(flowCore,ggplot2)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #ggflow_plot
@@ -29,14 +28,27 @@ ggflow_plot <- function(flowFrame,
                         x_lim   = NA,
                         y_lim   = NA,
                         contour = TRUE){
-  #define color vector
-  if(color_v=="blue-red"){
-    color_v = c("blue","red")
+  #define standard color vector
+  if(length(color_v)==1){
+    if(color_v[1]=="bluered"){
+      color_v = c("blue","red")
+    }
+    if(color_v[1]=="standard"){
+      color_v = c("blue","yellow","red")
+    }
+    if(color_v[1]=='bellpepper'){
+      color_v = c("green",'red','yellow')
+    }
+    if(color_v[1]=='londonfog'){
+      color_v = colorRampPalette(c('white','navyblue'))(100)
+    }
+    if(color_v[1]=='deepblue'){
+      color_v=c('navyblue','cyan','blue')
+    }
+    if(color_v[1]=='parissummer'){
+      color_v=c("yellow","orangered","royalblue")
+    } 
   }
-  if(color_v=="standard"){
-    color_v = c("blue","yellow","red")
-  }
-  
   
   #extract data
   value_matrix <- as.data.frame(exprs(flowFrame));

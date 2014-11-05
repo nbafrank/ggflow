@@ -30,7 +30,7 @@ a string describing the parameter to be plotted on the x-axis e.g. x_value = "SS
 a string describing the parameter to be plotted on the x-axis e.g. y_value = "FSC-H"
 }
   \item{color_v}{
-this option specifies the density gradient color scale and defaults to blue, yellow, and red ("standard"), blue and red ("blue-red"),
+this option specifies the density gradient color scale and defaults to blue, yellow, and red ("standard"). You can either input a pre-defined color scheme or just a color vector (such as c("blue","red")). The currently pre-loaded schemes are "standard","bluered","bellpepper","londonfog","deepblue","parissummer"
 }
   \item{logx}{
 this option specifies to use log10 scale on the x axis
