@@ -13,7 +13,7 @@ ggflow_plot(flowFrame,
             y_value = "FSC-H",
             logx    = TRUE,
             logy    = TRUE,
-            color_v = c("blue","red"),
+            color_v = "standard",
             x_lim   = NA,
             y_lim   = NA,
             contour = TRUE)
@@ -30,7 +30,7 @@ a string describing the parameter to be plotted on the x-axis e.g. x_value = "SS
 a string describing the parameter to be plotted on the x-axis e.g. y_value = "FSC-H"
 }
   \item{color_v}{
-this option specifies the density gradient color scale and defaults to low blue and high red 
+this option specifies the density gradient color scale and defaults to blue, yellow, and red ("standard"), blue and red ("blue-red"),
 }
   \item{logx}{
 this option specifies to use log10 scale on the x axis

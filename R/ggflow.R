@@ -11,8 +11,8 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #######################################################################################
 
-require(flowCore);
-require(ggplot2);
+library(flowCore);
+library(ggplot2);
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #ggflow_plot
@@ -25,10 +25,19 @@ ggflow_plot <- function(flowFrame,
                         y_value = "FSC-H",
                         logx    = TRUE,
                         logy    = TRUE,
-                        color_v = c("blue","red"),
+                        color_v = "standard",
                         x_lim   = NA,
                         y_lim   = NA,
                         contour = TRUE){
+  #define color vector
+  if(color_v=="blue-red"){
+    color_v = c("blue","red")
+  }
+  if(color_v=="standard"){
+    color_v = c("blue","yellow","red")
+  }
+  
+  
   #extract data
   value_matrix <- as.data.frame(exprs(flowFrame));
   
@@ -211,13 +220,13 @@ gg_rectgater_display <- function(gg_flow_plot,
       if(label==TRUE){
         #percentage
         if(perc==TRUE){
-        gg_flow_plot <- gg_flow_plot + 
-          annotate("text",
-                   label=paste(round(selected_perc*100,2),"%",sep=""),
-                   x=x_min,
-                   y=y_min,
-                   colour= col_lab,
-                   size=8);
+          gg_flow_plot <- gg_flow_plot + 
+            annotate("text",
+                     label=paste(round(selected_perc*100,2),"%",sep=""),
+                     x=x_min,
+                     y=y_min,
+                     colour= col_lab,
+                     size=8);
         }
         #total count
         if(totc==TRUE){
