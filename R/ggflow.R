@@ -259,6 +259,89 @@ gg_rectgater_display <- function(gg_flow_plot,
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#gg_polygater_display
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#this function displays a polygonal gate on a ggflow object
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gg_polygater_display <- function(gg_flow_plot,
+                                 polyGate = NULL,
+                                 size_seg = 1,
+                                 col_seg  = "orange",
+                                 label    = TRUE,
+                                 perc     = TRUE,
+                                 totc     = TRUE,
+                                 col_lab  = "orangered",
+                                 type_seg = 2){
+  
+  if(!is.null(polyGate)){
+    
+    #check if gate dimensions are even in the plot
+    name_map <- match(c(gg_flow_plot$labels$y,
+                        gg_flow_plot$labels$x),
+                      colnames(polyGate@boundaries))
+    
+    #if both x and y match add gate
+    if(all(!is.na(name_map))){
+      
+      #define coordinates
+      
+      #Calculate numbers [for x and y]
+      #redefine flowframe object
+      newflowFrame <- Subset(gg_flow_plot$flowFrame,
+                             filter(gg_flow_plot$flowFrame,
+                                    polyGate))
+      #map object
+      selected_cells<- nrow(newflowFrame@exprs)
+      selected_perc <- selected_cells/nrow(gg_flow_plot$flowFrame@exprs)
+      
+      #get the min/max x and y
+      x_min <- min(pg@boundaries[c(1:nrow(pg@boundaries),1),name_map[2]])
+      y_min <- min(pg@boundaries[c(1:nrow(pg@boundaries),1),name_map[1]])
+      x_max <- max(pg@boundaries[c(1:nrow(pg@boundaries),1),name_map[2]])      
+      y_max <- max(pg@boundaries[c(1:nrow(pg@boundaries),1),name_map[1]])
+      
+      
+      #Add gate as geom_path
+      gg_flow_plot <- gg_flow_plot + 
+        geom_path(data=data.frame(x=pg@boundaries[c(1:nrow(pg@boundaries),1),name_map[2]],
+                                  y=pg@boundaries[c(1:nrow(pg@boundaries),1),name_map[1]]),
+                  aes(x=x,y=y),
+                  size     = size_seg,
+                  colour   = col_seg,
+                  linetype = type_seg)
+      
+      #display percentage cells
+      if(label==TRUE){
+        #percentage
+        if(perc==TRUE){
+          gg_flow_plot <- gg_flow_plot + 
+            annotate("text",
+                     label=paste(round(selected_perc*100,2),"%",sep=""),
+                     x=x_min,
+                     y=y_min,
+                     colour= col_lab,
+                     size=8);
+        }
+        #total count
+        if(totc==TRUE){
+          gg_flow_plot <- gg_flow_plot + 
+            annotate("text",
+                     label=selected_cells,
+                     x=x_max,
+                     y=y_min,
+                     colour= col_lab,
+                     size=8);
+        }
+      }
+    }
+  }
+  
+  #return ggplot object
+  return(gg_flow_plot);
+}
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #gg_gate_cutter
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #this function modifies a ggflow object by gating on certain specific values. This 
@@ -276,14 +359,14 @@ gg_gate_cutter <- function(gg_flow_plot,
                                   flowGate));
     #replot using new flowFrame
     gg_flow_plot <- ggflow_plot(newflowFrame,
-                                x_value = ggplot_obj$inputopts$x_value,
-                                y_value = ggplot_obj$inputopts$y_value,
-                                logx    = ggplot_obj$inputopts$logx,
-                                logy    = ggplot_obj$inputopts$logy,
-                                color_v = ggplot_obj$inputopts$color_v,
-                                x_lim   = ggplot_obj$inputopts$x_lim,
-                                y_lim   = ggplot_obj$inputopts$y_lim,
-                                contour = ggplot_obj$inputopts$contour)
+                                x_value = gg_flow_plot$inputopts$x_value,
+                                y_value = gg_flow_plot$inputopts$y_value,
+                                logx    = gg_flow_plot$inputopts$logx,
+                                logy    = gg_flow_plot$inputopts$logy,
+                                color_v = gg_flow_plot$inputopts$color_v,
+                                x_lim   = gg_flow_plot$inputopts$x_lim,
+                                y_lim   = gg_flow_plot$inputopts$y_lim,
+                                contour = gg_flow_plot$inputopts$contour)
   }
   
   #return ggplot object
