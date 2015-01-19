@@ -2,7 +2,7 @@
 ggflow
 ========================================================
 
-ggflow is a plotting package for flowcytometry built on ggplot2 and flowCore. ggflow allows to easily plot flowFrame objects from FCS files into beautiful 2D scatter plots. Now with 6 pre-defined color sets!
+ggflow is a plotting package for flow cytometry built on ggplot2 and flowCore. ggflow allows to easily plot flowFrame objects from FCS files into beautiful 2D scatter plots. Now with 6 pre-defined color sets!
 
 ![plot of chunk color-chunk-1](figures/fig_colors.png)
 
