@@ -154,9 +154,51 @@ ggflow_plot <- function(flowFrame,
 }
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#gg_rectgater_display
+#gg_gate_display
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #this function displays a gate on a ggflow object
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gg_gate_display <- function(gg_flow_plot,
+                            gate     = NULL,
+                            size_seg = 1,
+                            col_seg  = "orange",
+                            label    = TRUE,
+                            perc     = TRUE,
+                            totc     = TRUE,
+                            col_lab  = "orangered",
+                            type_seg = 2){
+  #
+  if(class(gate)[[1]]=='rectangleGate'){
+    return(gg_rectgater_display(gg_flow_plot,
+                              gate,
+                              size_seg,
+                              col_seg,
+                              label,
+                              perc,
+                              totc,
+                              col_lab,
+                              type_seg))
+  
+  }else if(class(gate)[[1]]=='polygonGate'){
+    return(gg_polygater_display(gg_flow_plot,
+                                gate,
+                                size_seg,
+                                col_seg,
+                                label,
+                                perc,
+                                totc,
+                                col_lab,
+                                type_seg))  
+  }else{
+    stop("Weird Gate object! Please check your input gate argument")
+  }
+}
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#gg_rectgater_display
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#this function displays a rectangular gate on a ggflow object
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 gg_rectgater_display <- function(gg_flow_plot,
                                  rectGate = NULL,
@@ -295,16 +337,16 @@ gg_polygater_display <- function(gg_flow_plot,
       selected_perc <- selected_cells/nrow(gg_flow_plot$flowFrame@exprs)
       
       #get the min/max x and y
-      x_min <- min(pg@boundaries[c(1:nrow(pg@boundaries),1),name_map[2]])
-      y_min <- min(pg@boundaries[c(1:nrow(pg@boundaries),1),name_map[1]])
-      x_max <- max(pg@boundaries[c(1:nrow(pg@boundaries),1),name_map[2]])      
-      y_max <- max(pg@boundaries[c(1:nrow(pg@boundaries),1),name_map[1]])
+      x_min <- min(polyGate@boundaries[c(1:nrow(polyGate@boundaries),1),name_map[2]])
+      y_min <- min(polyGate@boundaries[c(1:nrow(polyGate@boundaries),1),name_map[1]])
+      x_max <- max(polyGate@boundaries[c(1:nrow(polyGate@boundaries),1),name_map[2]])      
+      y_max <- max(polyGate@boundaries[c(1:nrow(polyGate@boundaries),1),name_map[1]])
       
       
       #Add gate as geom_path
       gg_flow_plot <- gg_flow_plot + 
-        geom_path(data=data.frame(x=pg@boundaries[c(1:nrow(pg@boundaries),1),name_map[2]],
-                                  y=pg@boundaries[c(1:nrow(pg@boundaries),1),name_map[1]]),
+        geom_path(data=data.frame(x=polyGate@boundaries[c(1:nrow(polyGate@boundaries),1),name_map[2]],
+                                  y=polyGate@boundaries[c(1:nrow(polyGate@boundaries),1),name_map[1]]),
                   aes(x=x,y=y),
                   size     = size_seg,
                   colour   = col_seg,
